@@ -14,14 +14,14 @@ func FiltringArgs(args []string) {
 	switch len(args) {
 	// in 1 arg must be only user word
 	case 1:
-		Word = AsciiWordSearch(args[0]) // searching the word
-		if Word == "" {                 // mean err detected
-			Error("")
-		}
+		Word = args[0] // searching the word
 	// in 2 arg must be user word and ( file output or banner name )
 	case 2:
 		for i := 0; i < 2; i++ {
 			AsciiSearch(args[i]) // searching the args 2 time
+		}
+		if Word == "" && (File == "" || Banner == "") {
+			Word = args[0]
 		}
 		if Word == "" || (File == "" && Banner == "") { // mean err detected
 			Error("")
@@ -30,6 +30,18 @@ func FiltringArgs(args []string) {
 	case 3:
 		for i := 0; i < 3; i++ {
 			AsciiSearch(args[i]) // searching the args 3 time
+		}
+		if Word == "" && (File != "" || Banner != "") {
+			Word = AsciiFilePrintSearch(args[0])
+			if Word != "" {
+				Word = args[1]
+			} else {
+				if Word == "standard.txt" {
+					Word = args[2]
+				} else {
+					Word = args[0]
+				}
+			}
 		}
 		if Word == "" || File == "" || Banner == "" { // mean err detected
 			Error("")
@@ -91,6 +103,10 @@ func AsciiFilePrintSearch(arg string) string {
 	file := ""
 	if len(arg) > 9 && arg[:9] == "--output=" { // we check if the first of this arg start with --output= wich mean is a flag if not return null
 		file = arg[9:] // we return the rest of mean the name of output file
+		// check file errors
+		if arg == "--output=" || !strings.HasSuffix(arg, ".txt") || strings.Contains(arg, "/") {
+			Error("check your file name\n")
+		}
 	}
 	return file
 }
