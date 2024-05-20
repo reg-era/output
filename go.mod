@@ -1,3 +1,3 @@
-module asciiartfs
+module ascciartoutput
 
 go 1.22.3

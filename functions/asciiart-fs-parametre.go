@@ -1,28 +1,25 @@
-package asciiartfs
+package ascciartoutput
 
 import (
 	"log"
-	"os"
-	"strings"
 )
 
-func AsciiArtFsParametre( text string , banner string , checkcharacter []string, readfile map[rune][]string) string {
-	readFile := map[rune][]string{}
-	args := os.Args[1:]
-	if len(args) == 2 {
-		readFile = ReadFile("./sources/" + banner + ".txt")
+func AsciiArtFsParametre(args []string) string {
+	text := args[0]
+	readfile := map[rune][]string{}
+	if len(args) == 1 {
+		readfile = ReadFile("./sources/standard.txt")
 		// if it's three arguments
-	} else if !strings.HasSuffix(banner, ".txt") {
-		readFile = ReadFile("./sources/" + banner + ".txt")
+	} else if len(args) == 2 && (args[1] == "standard" || args[1] == "shadow" || args[1] == "thinkertoy") {
+		readfile = ReadFile("./sources/" + args[1] + ".txt")
 	} else {
-		log.Fatalln("err: the third argument should be one of these file names (standerd),(shadow),(thinkertoy)")
+		log.Fatalln("err: the third argument should be one of these file names (standard),(shadow),(thinkertoy) 0001111")
 	}
 	// check if the input is among ascii manual
 
-	// 	asciiartfs "asciiartfs/functions"
-	checkcharacter = CheckCharacter(text)
+	checkcharacter := CheckCharacter(text)
 
 	// go print my argument
-	result := FindAndPrint(checkcharacter, readFile)
+	result := FindAndPrint(checkcharacter, readfile)
 	return result
 }

@@ -1,4 +1,4 @@
-package asciiartfs
+package ascciartoutput
 
 import (
 	"fmt"
@@ -7,14 +7,17 @@ import (
 )
 
 func CheckFlag(arg string) string {
-	output := "--output="
-	if !strings.HasPrefix(arg, output) {
-		return ""
+	file_Name := ""
+	if strings.HasPrefix(arg, "--output") {
+		output := "--output="
+		// if !strings.HasPrefix(arg, output) {
+		// 	return ""
+		// }
+		file_Name = arg[len(output):]
+		if !strings.HasSuffix(file_Name, ".txt") {
+			fmt.Println("Error message")
+			os.Exit(0)
+		}
 	}
-	file_name := arg[len(output):]
-	if !strings.HasSuffix(file_name, ".txt") {
-		fmt.Println("Error message")
-		os.Exit(0)
-	}
-	return file_name
+	return file_Name
 }

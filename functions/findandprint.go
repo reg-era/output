@@ -1,4 +1,4 @@
-package asciiartfs
+package ascciartoutput
 
 func FindAndPrint(checkcharacter []string, readfile map[rune][]string) string {
 	result := ""
