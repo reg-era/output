@@ -15,7 +15,7 @@ func AsciiPrint(word []rune) string {
 	for i := 0; i < 8; i++ { // point on each line
 		for j := 0; j < len(word); j++ { // point on each char from the word
 			if word[j] < ' ' || word[j] > '~' {
-				Error("The output file must be .txt extension")
+				Error("the character " + string(word[j]) + " can't be converted to ASCII art\n")
 			}
 			line := AsciiMap[word[j]][i] // print for each char the line that we point it
 			res += line
@@ -57,7 +57,7 @@ func AsciiCreat(cont, file string) {
 	}
 	if len(file) > 4 { // check if extention file is .txt
 		if file[len(file)-4:] != ".txt" {
-			Error("The output file must be .txt extension")
+			Error("The output file must be .txt extension\n")
 		}
 	}
 	// creat file and put the content in it

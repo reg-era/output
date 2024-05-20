@@ -15,7 +15,7 @@ func AsciiReload(banner string, word string) {
 	}
 	asciifile, err := os.Open("asciilib/" + banner) // we open the banner file
 	if err != nil {
-		Error("Dont play in program file >(")
+		Error("Dont play in program file >(\n")
 	}
 	defer asciifile.Close()               // closing file in last
 	scanne := bufio.NewScanner(asciifile) // we tack content of file and put it in scanner

@@ -22,6 +22,9 @@ func FiltringArgs(args []string) {
 		}
 		if Word == "" && (File == "" || Banner == "") {
 			Word = args[0]
+			if Banner != "" {
+				Banner = AsciiBannerSearch(args[1])
+			}
 		}
 		if Word == "" || (File == "" && Banner == "") { // mean err detected
 			Error("")
@@ -31,15 +34,13 @@ func FiltringArgs(args []string) {
 		for i := 0; i < 3; i++ {
 			AsciiSearch(args[i]) // searching the args 3 time
 		}
+		// if we dont found word but we found option
 		if Word == "" && (File != "" || Banner != "") {
-			Word = AsciiFilePrintSearch(args[0])
-			if Word != "" {
-				Word = args[1]
-			} else {
-				if Word == "standard.txt" {
-					Word = args[2]
-				} else {
-					Word = args[0]
+			// in this case the word is obligate to be first argument
+			if AsciiFilePrintSearch(args[0]) == "" { // we check if is not a output option its mean is a banner
+				Word = args[0]
+				if AsciiFilePrintSearch(args[1]) != "" { // we check if is not a output option its mean is banner
+					Banner = AsciiBannerSearch(args[2]) // we initialize the banner to the last argument
 				}
 			}
 		}
