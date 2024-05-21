@@ -8,11 +8,14 @@ import (
 
 func CheckCharacter(text string) []string {
 	for _, char := range text {
-		if rune(char) < 32 || rune(char) > 126 {
-			fmt.Println("err:please enter a valid character")
-			os.Exit(1)
+		if rune(char) < ' ' || rune(char) > '~' {
+			Error("Please enter a valid character\n")
 		}
 	}
-	line := strings.Split(text, "\\n")
-	return line
+	return strings.Split(text, "\\n")
+}
+
+func Error(specification string) {
+	fmt.Println(specification + "Usage: go run . [OPTION] [STRING] [BANNER]\n\nEX: go run . --output=<fileName.txt> something standard")
+	os.Exit(0)
 }

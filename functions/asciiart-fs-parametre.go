@@ -1,9 +1,7 @@
 package ascciartoutput
 
-import (
-	"log"
-)
 
+// this func takes arguments as parametre and return the final result to print
 func AsciiArtFsParametre(args []string) string {
 	text := args[0]
 	readfile := map[rune][]string{}
@@ -13,13 +11,9 @@ func AsciiArtFsParametre(args []string) string {
 	} else if len(args) == 2 && (args[1] == "standard" || args[1] == "shadow" || args[1] == "thinkertoy") {
 		readfile = ReadFile("./sources/" + args[1] + ".txt")
 	} else {
-		log.Fatalln("err: the third argument should be one of these file names (standard),(shadow),(thinkertoy) 0001111")
+		Error("The banner should be one of these file names [standard] [shadow] [thinkertoy]\n")
 	}
-	// check if the input is among ascii manual
-
-	checkcharacter := CheckCharacter(text)
-
 	// go print my argument
-	result := FindAndPrint(checkcharacter, readfile)
+	result := FindAndPrint(CheckCharacter(text), readfile)
 	return result
 }

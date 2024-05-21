@@ -5,23 +5,17 @@ func FindAndPrint(checkcharacter []string, readfile map[rune][]string) string {
 	is_Printed := false
 	for idx, word := range checkcharacter {
 		if word != "" {
-			i := 0
-			for i < 8 {
+			for i := 0; i < 8; i++ {
 				line := ""
 				for _, char := range word {
 					line = readfile[char][i]
-					// fmt.Print(line)
 					result += line
 				}
 				result += "\n"
-				i++
 				is_Printed = true
 			}
 		} else {
-			if idx == len(checkcharacter)-1 && !is_Printed {
-				continue
-			} else {
-				// fmt.Println()
+			if idx != len(checkcharacter)-1 || is_Printed {
 				result += "\n"
 			}
 		}
