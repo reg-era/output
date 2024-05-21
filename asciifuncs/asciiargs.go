@@ -39,9 +39,15 @@ func FiltringArgs(args []string) {
 			// in this case the word is obligate to be first argument
 			if AsciiFilePrintSearch(args[0]) == "" { // we check if is not a output option its mean is a banner
 				Word = args[0]
+				if AsciiBannerSearch(args[1]) != "" {
+					Banner = AsciiBannerSearch(args[1])
+				}
 				if AsciiFilePrintSearch(args[1]) != "" { // we check if is not a output option its mean is banner
 					Banner = AsciiBannerSearch(args[2]) // we initialize the banner to the last argument
 				}
+			} else {
+				Word = args[1]
+				Banner = AsciiBannerSearch(args[2])
 			}
 		}
 		if Word == "" || File == "" || Banner == "" { // mean err detected
@@ -105,7 +111,7 @@ func AsciiFilePrintSearch(arg string) string {
 	if len(arg) > 9 && arg[:9] == "--output=" { // we check if the first of this arg start with --output= wich mean is a flag if not return null
 		file = arg[9:] // we return the rest of mean the name of output file
 		// check file errors
-		if arg == "--output=" || !strings.HasSuffix(arg, ".txt") || strings.Contains(arg, "/") {
+		if arg == "--output=" || !strings.HasSuffix(arg, ".txt") || strings.Contains(arg, "/") || file == ".txt" {
 			Error("check your file name\n")
 		}
 	}
